@@ -1,6 +1,7 @@
 using Cinemachine;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace DiplomaProject.ThirdPersonController
 {
@@ -15,10 +16,13 @@ namespace DiplomaProject.ThirdPersonController
         [SerializeField] private float _defaultSensitivity = 1f;
 
         [SerializeField] private LayerMask _aimColliderMask;
+        [SerializeField] private Transform _aimDummy;
 
         [SerializeField] private Transform _shootPosition;
         [SerializeField] private Projectile _projectilePrefab;
 
+        [SerializeField] private Rig _aimRig;
+        
         private void Update()
         {
             Vector3 mouseWorldPosition = Vector3.zero;
@@ -27,6 +31,7 @@ namespace DiplomaProject.ThirdPersonController
             if (Physics.Raycast(ray, out RaycastHit hit, 999f, _aimColliderMask))
             {
                 mouseWorldPosition = hit.point;
+                _aimDummy.position = Vector3.Lerp(_aimDummy.position, mouseWorldPosition, Time.deltaTime * 10);
             }
 
             _aimCamera.gameObject.SetActive(_inputs.aim);
@@ -36,6 +41,7 @@ namespace DiplomaProject.ThirdPersonController
             if (_inputs.aim)
             {
                 _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 1, Time.deltaTime * 10));
+                _aimRig.weight = Mathf.Lerp(_aimRig.weight, 1f, Time.deltaTime * 10);
                 
                 var worldAimTarget = mouseWorldPosition;
                 worldAimTarget.y = transform.position.y;
@@ -53,6 +59,7 @@ namespace DiplomaProject.ThirdPersonController
             else
             {
                 _animator.SetLayerWeight(1, Mathf.Lerp(_animator.GetLayerWeight(1), 0, Time.deltaTime * 10));
+                _aimRig.weight = Mathf.Lerp(_aimRig.weight, 0f, Time.deltaTime * 10);
             }
         }
     }
