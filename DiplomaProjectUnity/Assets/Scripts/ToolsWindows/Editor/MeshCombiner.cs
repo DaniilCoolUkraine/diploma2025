@@ -21,11 +21,13 @@ namespace DiplomaProject.ToolsWindows.Editor
         {
             var combine = new CombineInstance[_meshes.Length];
 
+            var targetTransform = _targetMesh.transform.worldToLocalMatrix;
+            
             int i = 0;
             foreach (var mesh in _meshes)
             {
                 combine[i].mesh = mesh.sharedMesh;
-                combine[i].transform = mesh.transform.localToWorldMatrix;
+                combine[i].transform = targetTransform * mesh.transform.localToWorldMatrix;
 
                 i++;
             }
