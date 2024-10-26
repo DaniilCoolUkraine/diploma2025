@@ -7,6 +7,9 @@ namespace DiplomaProject.ToolsWindows.Editor
 {
     public class MeshCombiner : OdinEditorWindow
     {
+        [Header("Optionals")] 
+        [SerializeField] private bool _addMeshCollider;
+        
         [SerializeField] private MeshFilter[] _meshes;
         [SerializeField] private MeshFilter _targetMesh;
 
@@ -37,6 +40,12 @@ namespace DiplomaProject.ToolsWindows.Editor
             
             _targetMesh.mesh = newMesh;
             _targetMesh.GetComponent<MeshRenderer>().sharedMaterials = _meshes[0].GetComponent<MeshRenderer>().sharedMaterials;
+
+            if (_addMeshCollider)
+            {
+                var collider = _targetMesh.gameObject.AddComponent<MeshCollider>();
+                collider.sharedMesh = newMesh;
+            }
 
             EditorUtility.SetDirty(_targetMesh);
 
