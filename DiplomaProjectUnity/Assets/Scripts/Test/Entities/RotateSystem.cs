@@ -4,6 +4,7 @@ using Unity.Transforms;
 
 namespace DiplomaProject.Test.Entities
 {
+    [BurstCompile]
     public partial struct RotateSystem : ISystem
     {
         public void OnCreate(ref SystemState state)
@@ -11,7 +12,6 @@ namespace DiplomaProject.Test.Entities
             state.RequireForUpdate<RotateSpeed>();
         }
         
-        // [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var entities = SystemAPI.QueryBuilder().WithAll<RotateSpeed>().WithAll<LocalTransform>().Build();
