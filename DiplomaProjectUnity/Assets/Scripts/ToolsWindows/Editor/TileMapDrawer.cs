@@ -40,11 +40,9 @@ namespace DiplomaProject.ToolsWindows.Editor
             }
             
             GUILayout.BeginVertical();
-            // for (int y = 0; y < _gridSize.y; y++)
             for (int y = _gridSize.y - 1; y >= 0; y--)
             {
                 GUILayout.BeginHorizontal();
-                // for (int x = _gridSize.x - 1; x >= 0; x--)
                 for (int x = 0; x < _gridSize.x; x++)
                 {
                     TileNode node = _nodes[y * _gridSize.x + x];
@@ -87,13 +85,13 @@ namespace DiplomaProject.ToolsWindows.Editor
         private void OnTileClicked(TileNode node)
         {
             node.IsWalkable = !node.IsWalkable;
-            Debug.Log($"node isWalkable: {node.IsWalkable}");
         }
 
         [Button]
         private void SaveMap()
         {
             _runner.SetMap(_gridSize, _nodes);
+            EditorUtility.SetDirty(_runner);
         }
 
         [Button]

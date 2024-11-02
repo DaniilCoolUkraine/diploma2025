@@ -348,7 +348,7 @@ Transform:
   m_GameObject: {fileID: 1000193713}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -3.746, y: 3, z: -2.163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -406,9 +406,290 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9650c629d7ee450597d52ad3e77bf205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridSize: {x: 5, y: 5}
+  _gridSize: {x: 10, y: 7}
   _startPoint: {x: 0, y: 0}
   _endPoint: {x: 2, y: 1}
+  _nodes:
+  - X: 0
+    Y: 0
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 1
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 0
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 5
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 7
+    Y: 0
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 8
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 9
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 1
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 2
+    Y: 1
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 4
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 5
+    Y: 1
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 7
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 8
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 9
+    Y: 1
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 5
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 2
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 7
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 8
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 9
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 3
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 3
+    Y: 3
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 4
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 5
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 7
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 8
+    Y: 3
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 9
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 4
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 3
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 5
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 4
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 7
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 8
+    Y: 4
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 9
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 5
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 5
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 2
+    Y: 5
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 3
+    Y: 5
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 5
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 5
+    Y: 5
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 6
+    Y: 5
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 7
+    Y: 5
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 8
+    Y: 5
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 9
+    Y: 5
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 6
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 3
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 5
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 6
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 7
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 8
+    Y: 6
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 9
+    Y: 6
+    IsWalkable: 1
+    IsGoal: 0
 --- !u!4 &1978275086
 Transform:
   m_ObjectHideFlags: 0
