@@ -2,6 +2,7 @@
 using DiplomaProject.General;
 using DiplomaProject.PathFinding.Utils;
 using Shapes;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace DiplomaProject.TileMap
@@ -10,7 +11,7 @@ namespace DiplomaProject.TileMap
     {
         public static int CalculateIndex(int x, int y, int gridWidth)
         {
-            Debug.Log($"calculate index for ({x}, {y}), gridWidth {gridWidth}. index is {x + y * gridWidth}");
+            // Debug.Log($"calculate index for ({x}, {y}), gridWidth {gridWidth}. index is {x + y * gridWidth}");
             return x + y * gridWidth;
         }
 
@@ -35,6 +36,22 @@ namespace DiplomaProject.TileMap
         public static Vector3 TileToWorldPosition(int x, int y)
         {
             return new Vector3(x * Constants.TILE_PER_UNIT, y * Constants.TILE_PER_UNIT, 0);
+        }
+
+        public static bool TilePositionIsInBounds(int x, int y, int gridWidth, int gridHeight)
+        {
+            return x >= 0 && y >= 0 && 
+                   x < gridWidth && y < gridHeight;
+        }
+        
+        public static int CalculateDistanceCost(int2 aPosition, int2 bPosition)
+        {
+            int xDistance = math.abs(aPosition.x - bPosition.x);
+            int yDistance = math.abs(aPosition.y - bPosition.y);
+            
+            int remaining = math.abs(xDistance - yDistance);
+            return PathFinderConstants.MOVE_DIAGONAL_COST * math.min(xDistance, yDistance) +
+                   PathFinderConstants.MOVE_STRAIGHT_COST * remaining;
         }
     }
 }

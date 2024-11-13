@@ -122,7 +122,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &632611306
+--- !u!1 &525981121
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,10 +130,172 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 632611309}
-  - component: {fileID: 632611308}
-  - component: {fileID: 632611307}
-  - component: {fileID: 632611310}
+  - component: {fileID: 525981122}
+  - component: {fileID: 525981123}
+  - component: {fileID: 525981124}
+  m_Layer: 0
+  m_Name: PathfindingRunner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &525981122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525981121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &525981123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525981121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9650c629d7ee450597d52ad3e77bf205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridSize: {x: 5, y: 5}
+  _startPoint: {x: 0, y: 0}
+  _endPoint: {x: 0, y: 2}
+  _aStar: {fileID: 525981124}
+  _nodes:
+  - X: 0
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 0
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 0
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 0
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 1
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 2
+    Y: 1
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 3
+    Y: 1
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 1
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 0
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 2
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 2
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 2
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 2
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 0
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 2
+    Y: 3
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 3
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 4
+    Y: 3
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 0
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 1
+    Y: 4
+    IsWalkable: 0
+    IsGoal: 0
+  - X: 2
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 3
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+  - X: 4
+    Y: 4
+    IsWalkable: 1
+    IsGoal: 0
+--- !u!114 &525981124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525981121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab7690f86f5b438a886dd776723bf984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _length: 100
+--- !u!1 &1799516704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799516707}
+  - component: {fileID: 1799516706}
+  - component: {fileID: 1799516705}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -141,21 +303,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &632611307
+--- !u!81 &1799516705
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632611306}
+  m_GameObject: {fileID: 1799516704}
   m_Enabled: 1
---- !u!20 &632611308
+--- !u!20 &1799516706
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632611306}
+  m_GameObject: {fileID: 1799516704}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -200,13 +362,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &632611309
+--- !u!4 &1799516707
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632611306}
+  m_GameObject: {fileID: 1799516704}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
@@ -215,51 +377,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &632611310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632611306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
---- !u!1 &1000193713
+--- !u!1 &1948569852
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,9 +385,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1000193715}
-  - component: {fileID: 1000193714}
-  - component: {fileID: 1000193716}
+  - component: {fileID: 1948569854}
+  - component: {fileID: 1948569853}
+  - component: {fileID: 1948569855}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -277,13 +395,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!108 &1000193714
+--- !u!108 &1948569853
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000193713}
+  m_GameObject: {fileID: 1948569852}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
@@ -339,28 +457,28 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!4 &1000193715
+--- !u!4 &1948569854
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000193713}
+  m_GameObject: {fileID: 1948569852}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: -3.746, y: 3, z: -2.163}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &1000193716
+--- !u!114 &1948569855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000193713}
+  m_GameObject: {fileID: 1948569852}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
@@ -377,338 +495,10 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1978275084
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1978275086}
-  - component: {fileID: 1978275085}
-  m_Layer: 0
-  m_Name: Runner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1978275085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1978275084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9650c629d7ee450597d52ad3e77bf205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridSize: {x: 10, y: 7}
-  _startPoint: {x: 0, y: 0}
-  _endPoint: {x: 2, y: 1}
-  _nodes:
-  - X: 0
-    Y: 0
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 1
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 2
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 3
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 4
-    Y: 0
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 5
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 7
-    Y: 0
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 8
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 9
-    Y: 0
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 1
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 2
-    Y: 1
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 3
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 4
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 5
-    Y: 1
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 7
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 8
-    Y: 1
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 9
-    Y: 1
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 1
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 2
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 3
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 4
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 5
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 2
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 7
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 8
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 9
-    Y: 2
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 1
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 2
-    Y: 3
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 3
-    Y: 3
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 4
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 5
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 7
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 8
-    Y: 3
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 9
-    Y: 3
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 1
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 2
-    Y: 4
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 3
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 4
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 5
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 4
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 7
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 8
-    Y: 4
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 9
-    Y: 4
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 5
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 1
-    Y: 5
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 2
-    Y: 5
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 3
-    Y: 5
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 4
-    Y: 5
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 5
-    Y: 5
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 6
-    Y: 5
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 7
-    Y: 5
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 8
-    Y: 5
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 9
-    Y: 5
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 0
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 1
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 2
-    Y: 6
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 3
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 4
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 5
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 6
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 7
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
-  - X: 8
-    Y: 6
-    IsWalkable: 0
-    IsGoal: 0
-  - X: 9
-    Y: 6
-    IsWalkable: 1
-    IsGoal: 0
---- !u!4 &1978275086
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1978275084}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 632611309}
-  - {fileID: 1000193715}
-  - {fileID: 1978275086}
+  - {fileID: 1799516707}
+  - {fileID: 1948569854}
+  - {fileID: 525981122}
