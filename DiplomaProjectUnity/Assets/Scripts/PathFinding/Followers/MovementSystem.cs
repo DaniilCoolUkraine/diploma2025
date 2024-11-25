@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace DiplomaProject.PathFinding.Followers
 {
@@ -10,7 +11,9 @@ namespace DiplomaProject.PathFinding.Followers
     {
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (transform, pathFindingParams, speed) in SystemAPI.Query<RefRW<LocalTransform>, RefRW<PathFindingParams>, RefRO<MovementSpeed>>().WithNone<IdleState>())
+            foreach (var (transform, pathFindingParams, speed)in 
+                     SystemAPI.Query<RefRW<LocalTransform>, RefRW<PathFindingParams>, RefRO<MovementSpeed>>()
+                         .WithNone<IdleState>())
             {
                 pathFindingParams.ValueRW.CurrentProgress += SystemAPI.Time.DeltaTime * speed.ValueRO.Speed;
 

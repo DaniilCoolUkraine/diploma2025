@@ -166,12 +166,10 @@ namespace DiplomaProject.PathFinding.Finders
 
             if (endNode.PreviousIndex == PathFinderConstants.INVALID_PREVIOUS_INDEX)
             {
-                Debug.Log("path doesnt exist");
+                Debug.LogError("path doesnt exist");
             }
             else
             {
-                Debug.Log("got path:");
-
                 var path = CollectPath(pathNodeArray, endNode);
                 path.Dispose();
             }
