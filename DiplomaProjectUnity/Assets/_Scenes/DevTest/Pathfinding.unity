@@ -185,7 +185,6 @@ GameObject:
   m_Component:
   - component: {fileID: 525981122}
   - component: {fileID: 525981123}
-  - component: {fileID: 525981124}
   m_Layer: 0
   m_Name: PathfindingRunner
   m_TagString: Untagged
@@ -322,18 +321,6 @@ MonoBehaviour:
     Y: 4
     IsWalkable: 1
     IsGoal: 0
---- !u!114 &525981124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525981121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7690f86f5b438a886dd776723bf984, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1799516704
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,11 +23,12 @@ namespace DiplomaProject.TileMap
             {
                 var textElement = new TextElement();
 
-                var color = node.IsWalkable ? Color.white : Color.black;
-                var cellCenter = parent.position + TileToWorldPosition(node.X, node.Y);
+                var color = node.IsWalkable ? new Color(0,0,0,0.5f) : new Color(1,1,1,0.5f);
+                var worldPosition = TileToWorldPosition(node.X, node.Y);
+                var cellCenter = parent.position + new Vector3(worldPosition.x, 0, worldPosition.y);
 
-                Draw.Rectangle(cellCenter, Quaternion.identity, size, Constants.TILE_BORDER_RADIUS, color);
-                Draw.Text(textElement, cellCenter, $"{node.X}, {node.Y}", 3, Color.green);
+                Draw.Rectangle(cellCenter, Quaternion.Euler(90, 0, 0), size, Constants.TILE_BORDER_RADIUS, color);
+                // Draw.Text(textElement, cellCenter, $"{node.X}, {node.Y}", 3, Color.green);
 
                 textElement.Dispose();   
             }

@@ -25,7 +25,7 @@ namespace DiplomaProject.ToolsWindows.Editor
 
         private List<TileNode> _nodes;
 
-        private readonly Vector2 _tileSize = new(40, 40);
+        private readonly Vector2 _tileSize = new(8, 8);
 
         [MenuItem("Tools/Draw map")]
         private static void OpenWindow()
@@ -57,7 +57,7 @@ namespace DiplomaProject.ToolsWindows.Editor
                     
                     GUI.backgroundColor = node.IsWalkable ? Color.white : Color.gray;
         
-                    if (GUILayout.Button($"{x}, {y}", GUILayout.Width(_tileSize.x), GUILayout.Height(_tileSize.y)))
+                    if (GUILayout.Button($"", GUILayout.Width(_tileSize.x), GUILayout.Height(_tileSize.y)))
                     {
                         OnTileClicked(node);
                     }
