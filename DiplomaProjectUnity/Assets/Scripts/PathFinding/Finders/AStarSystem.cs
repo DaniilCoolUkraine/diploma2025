@@ -11,7 +11,7 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = Unity.Mathematics.Random;
 
 namespace DiplomaProject.PathFinding.Finders
 {
@@ -19,6 +19,8 @@ namespace DiplomaProject.PathFinding.Finders
     {
         private NativeArray<PathNode> tilemap;
         private int2 tilemapSize;
+        
+        private Random random;
         
         public void OnCreate(ref SystemState state)
         {
@@ -37,6 +39,8 @@ namespace DiplomaProject.PathFinding.Finders
             {
                 tilemap[i] = array[i];
             }
+
+            random = new Random((uint)System.DateTime.UtcNow.Ticks);
         }
 
         public void OnUpdate(ref SystemState state)
@@ -49,8 +53,19 @@ namespace DiplomaProject.PathFinding.Finders
                 entityManager.SetComponentEnabled<WaitForCoordinates>(entity, false);
                 var path = new NativeList<int2>(Allocator.TempJob);
 
-                // var endPosition = new int2(Random.Range(0, 5), Random.Range(0, 5));
-                var endPosition = new int2(0, 4);
+                int2 endPosition;
+
+                while (true)
+                {
+                    var index = random.NextInt(0, tilemap.Length);
+                    var tile = tilemap[index];
+                    if (tile.Walkable)
+                    {
+                        endPosition = new int2(tile.X, tile.Y);
+                        break;
+                    }
+                }
+                
                 var position = currentPosition.ValueRO.Position;
 
                 FindPath(position, endPosition, tilemapSize, path);
@@ -217,7 +232,7 @@ namespace DiplomaProject.PathFinding.Finders
     
             if (endNode.PreviousIndex == PathFinderConstants.INVALID_PREVIOUS_INDEX)
             {
-                Debug.LogError("path doesnt exist");
+                Debug.LogError($"path doesnt exist (from {startPosition} to {endPosition})");
             }
             else
             {
