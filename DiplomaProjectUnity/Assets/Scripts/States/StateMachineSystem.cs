@@ -10,13 +10,12 @@ namespace DiplomaProject.States
         {
             var entityManager = state.EntityManager;
 
-            foreach (var (pathFindingParams, entity)
-                     in SystemAPI.Query<RefRW<PathFindingParams>>().WithEntityAccess())
+            foreach (var (buffer, entity)
+                     in SystemAPI.Query<DynamicBuffer<PathFindingParams>>().WithEntityAccess())
             {
-                if (pathFindingParams.ValueRO.CurrentProgress >= 1)
+                if (buffer.IsEmpty)
                 {
                     entityManager.SetComponentEnabled<IdleState>(entity, true);
-                    pathFindingParams.ValueRW.CurrentProgress = 0;
                 }
             }
 

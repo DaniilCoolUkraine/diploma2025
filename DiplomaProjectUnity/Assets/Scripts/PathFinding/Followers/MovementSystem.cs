@@ -1,26 +1,44 @@
-﻿using DiplomaProject.States;
+﻿using DiplomaProject.General.Extensions;
+using DiplomaProject.States;
+using DiplomaProject.TileMap;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace DiplomaProject.PathFinding.Followers
 {
     public partial struct MovementSystem : ISystem
     {
+        private const float THRESHOLD = 0.1f;
+        
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (transform, pathFindingParams, speed)in 
-                     SystemAPI.Query<RefRW<LocalTransform>, RefRW<PathFindingParams>, RefRO<MovementSpeed>>()
+            foreach (var (transform, buffer, speed, currentPosition)in 
+                     SystemAPI.Query<RefRW<LocalTransform>, DynamicBuffer<PathFindingParams>, RefRO<MovementSpeed>, RefRW<CurrentPosition>>()
                          .WithNone<IdleState>())
             {
-                pathFindingParams.ValueRW.CurrentProgress += SystemAPI.Time.DeltaTime * speed.ValueRO.Speed;
+                if (buffer.IsEmpty)
+                    continue;
+                
+                var targetPosition = buffer[0].EndPosition;
+                var moveVector = math.normalize(targetPosition - currentPosition.ValueRO.Position) 
+                                 * SystemAPI.Time.DeltaTime * speed.ValueRO.Speed;
 
-                var pathRo = pathFindingParams.ValueRO;
-                var moveVector = math.lerp(pathRo.StartPosition, pathRo.EndPosition, pathRo.CurrentProgress);
+                var worldTargetPosition = TileMapUtils.TileToWorldPosition(targetPosition.x, targetPosition.y).ToFloat3();
 
-                transform.ValueRW.Position = new float3(moveVector.x, moveVector.y, 0);
+                if (math.distance(worldTargetPosition, transform.ValueRO.Position) <= THRESHOLD)
+                {
+                    currentPosition.ValueRW.Position = targetPosition;
+                    buffer.RemoveAt(0);
+                }
+                else
+                {
+                    var job = new MoveJob { MoveVector = new float3(moveVector.x, moveVector.y, 0f) };
+                    job.Schedule();
+
+                    // transform.ValueRW.Position = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
+                }
             }
         }
     }
@@ -28,7 +46,6 @@ namespace DiplomaProject.PathFinding.Followers
     [BurstCompile]
     partial struct MoveJob : IJobEntity
     {
-        public float DeltaTime;
         public float3 MoveVector;
 
         public void Execute(ref LocalTransform transform)
