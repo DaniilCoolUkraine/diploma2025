@@ -22,11 +22,11 @@ namespace DiplomaProject.PathFinding.Followers
                     continue;
                 
                 var targetPosition = buffer[0].EndPosition;
-                var moveVector = math.normalize(targetPosition - currentPosition.ValueRO.Position) 
-                                 * SystemAPI.Time.DeltaTime * speed.ValueRO.Speed;
-
                 var worldTargetPosition = TileMapUtils.TileToWorldPosition(targetPosition.x, targetPosition.y).ToFloat3();
 
+                var moveVector = math.normalize(worldTargetPosition - transform.ValueRO.Position) 
+                                 * SystemAPI.Time.DeltaTime * speed.ValueRO.Speed;
+                
                 if (math.distance(worldTargetPosition, transform.ValueRO.Position) <= THRESHOLD)
                 {
                     currentPosition.ValueRW.Position = targetPosition;
@@ -34,8 +34,11 @@ namespace DiplomaProject.PathFinding.Followers
                 }
                 else
                 {
-                    var job = new MoveJob { MoveVector = new float3(moveVector.x, moveVector.y, 0f) };
-                    job.Schedule();
+                    // var job = new MoveJob { MoveVector = new float3(moveVector.x, moveVector.y, 0f) };
+                    // job.Schedule();
+
+                    var newPosition = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
+                    transform.ValueRW = transform.ValueRO.WithPosition(newPosition);
 
                     // transform.ValueRW.Position = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
                 }

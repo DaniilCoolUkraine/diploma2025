@@ -42,24 +42,28 @@ namespace DiplomaProject.PathFinding.Finders
         public void OnUpdate(ref SystemState state)
         {
             var entityManager = state.EntityManager;
-            
+
             foreach (var (buffer, currentPosition, entity) 
                      in SystemAPI.Query<DynamicBuffer<PathFindingParams>, RefRO<CurrentPosition>>().WithAll<WaitForCoordinates>().WithEntityAccess())
             {
-                var path = new NativeList<int2>(Allocator.Temp);
-                
-                var endPosition = new int2(Random.Range(0, 5), Random.Range(0, 5));
+                entityManager.SetComponentEnabled<WaitForCoordinates>(entity, false);
+                var path = new NativeList<int2>(Allocator.TempJob);
+
+                // var endPosition = new int2(Random.Range(0, 5), Random.Range(0, 5));
+                var endPosition = new int2(0, 4);
                 var position = currentPosition.ValueRO.Position;
+
                 FindPath(position, endPosition, tilemapSize, path);
 
                 buffer.Clear();
-                foreach (int2 pos in path)
+
+                for (int i = path.Length - 2; i >= 0; i--)
                 {
+                    var pos = path[i];
                     buffer.Add(new PathFindingParams { StartPosition = position, EndPosition = pos });
                     position = pos;
                 }
 
-                entityManager.SetComponentEnabled<WaitForCoordinates>(entity, false);
                 path.Dispose();
             }
         }
@@ -240,7 +244,7 @@ namespace DiplomaProject.PathFinding.Finders
             return lowestCostPathNode.Index;
         }
     
-        private NativeList<int2> CollectPath(NativeArray<PathNode> pathNodeArray, PathNode endNode)
+        private void CollectPath(NativeArray<PathNode> pathNodeArray, PathNode endNode)
         {
             if (endNode.PreviousIndex != PathFinderConstants.INVALID_PREVIOUS_INDEX)
             {
@@ -255,8 +259,6 @@ namespace DiplomaProject.PathFinding.Finders
                     currentNode = cameFromNode;
                 }
             }
-            
-            return path;
         }
     }
 }
