@@ -10,7 +10,7 @@ namespace DiplomaProject.PathFinding.Followers
             public override void Bake(MovementSpeedAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.Dynamic);
-                AddComponent(entity, new MovementSpeed(){Speed = 1});
+                AddComponent(entity, new MovementSpeed(){Speed = 4});
             }
         }
     }

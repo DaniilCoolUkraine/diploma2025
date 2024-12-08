@@ -37,7 +37,7 @@ namespace DiplomaProject.PathFinding.Followers
                     // var job = new MoveJob { MoveVector = new float3(moveVector.x, moveVector.y, 0f) };
                     // job.Schedule();
 
-                    var newPosition = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
+                    var newPosition = transform.ValueRO.Position + new float3(moveVector.x, 0, moveVector.y);
                     transform.ValueRW = transform.ValueRO.WithPosition(newPosition);
 
                     // transform.ValueRW.Position = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
