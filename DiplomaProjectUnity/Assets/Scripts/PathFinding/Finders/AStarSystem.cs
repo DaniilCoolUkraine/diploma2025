@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using DiplomaProject.General;
+using DiplomaProject.General.Extensions;
 using DiplomaProject.PathFinding.Followers;
-using DiplomaProject.PathFinding.Utils;
 using DiplomaProject.States;
 using DiplomaProject.TileMap;
 using Newtonsoft.Json;
@@ -19,17 +18,24 @@ namespace DiplomaProject.PathFinding.Finders
     public partial struct AStarSystem: ISystem
     {
         private NativeArray<PathNode> tilemap;
+        private int2 tilemapSize;
         
         public void OnCreate(ref SystemState state)
         {
-            var path = "Assets/Config/Tilemaps/TestTilemap.json";
-            var json = File.ReadAllText(path);
+            var tilemapPath = "Assets/Config/Tilemaps/TestTilemap.json";
+            var tilemapJson = File.ReadAllText(tilemapPath);
+            
+            var sizePath = "Assets/Config/Tilemaps/TestTilemapSize.json";
+            var sizeJson = File.ReadAllText(sizePath);
 
-            int[] array = JsonConvert.DeserializeObject<int[]>(json);
+            PathNode[] array = JsonConvert.DeserializeObject<PathNode[]>(tilemapJson);
+            tilemapSize = JsonConvert.DeserializeObject<Vector2Int>(sizeJson).ToInt2();
+            
+            tilemap = new NativeArray<PathNode>(array.Length, Allocator.Persistent);
 
-            foreach (int i in array)
+            for (int i = 0; i < array.Length; i++)
             {
-                Debug.Log(i);
+                tilemap[i] = array[i];
             }
         }
 
@@ -44,7 +50,7 @@ namespace DiplomaProject.PathFinding.Finders
                 
                 var endPosition = new int2(Random.Range(0, 5), Random.Range(0, 5));
                 var position = currentPosition.ValueRO.Position;
-                FindPath(position, endPosition, null, new int2(5, 5), path);
+                FindPath(position, endPosition, tilemapSize, path);
 
                 buffer.Clear();
                 foreach (int2 pos in path)
@@ -63,20 +69,20 @@ namespace DiplomaProject.PathFinding.Finders
             tilemap.Dispose();
         }
 
-        public void FindPath(int2 startPosition, int2 endPosition, List<TileNode> pathNodeArray, int2 gridSize, NativeList<int2> path)
+        public void FindPath(int2 startPosition, int2 endPosition, int2 gridSize, NativeList<int2> path)
         {
             var job = new FindPathJob()
             {
                 startPosition = startPosition,
                 endPosition = endPosition,
-                pathNodeArray = SetupGrid(endPosition, gridSize, pathNodeArray),
+                pathNodeArray = SetupGrid(endPosition, gridSize, tilemap),
                 gridSize = gridSize,
                 path = path
             };
             job.Run();
         }
         
-        private NativeArray<PathNode> SetupGrid(int2 endPosition, int2 gridSize, List<TileNode> nodes)
+        private NativeArray<PathNode> SetupGrid(int2 endPosition, int2 gridSize, NativeArray<PathNode> nodes)
         {
             var pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.TempJob);
     
@@ -95,7 +101,7 @@ namespace DiplomaProject.PathFinding.Finders
                     pathNode.hCost = TileMapUtils.CalculateDistanceCost(new int2(x, y), endPosition);
                     pathNode.CalculateFCost();
     
-                    pathNode.Walkable = nodes[pathNode.Index].IsWalkable;
+                    pathNode.Walkable = nodes[pathNode.Index].Walkable;
     
                     pathNodeArray[pathNode.Index] = pathNode;
                 }

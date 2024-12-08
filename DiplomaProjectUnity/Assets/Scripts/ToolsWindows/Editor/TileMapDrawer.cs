@@ -1,9 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using DiplomaProject.General;
+using DiplomaProject.General.Extensions;
 using DiplomaProject.PathFinding;
+using DiplomaProject.PathFinding.Finders;
 using DiplomaProject.PathFinding.Utils;
+using DiplomaProject.TileMap;
+using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Unity.Collections;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -92,8 +100,54 @@ namespace DiplomaProject.ToolsWindows.Editor
         {
             _runner.SetMap(_gridSize, _nodes);
             EditorUtility.SetDirty(_runner);
+
+            ConvertMapToJson(_gridSize, _nodes);
         }
 
+        private void ConvertMapToJson(Vector2Int gridSize, List<TileNode> nodes)
+        {
+            var tilemap = SetupGrid(gridSize.ToInt2(), nodes);
+            
+            var sizeString = JsonConvert.SerializeObject(gridSize);
+            var tilemapString = JsonConvert.SerializeObject(tilemap);
+            
+            var tilemapPath = "Assets/Config/Tilemaps/TestTilemap.json";
+            var sizePath = "Assets/Config/Tilemaps/TestTilemapSize.json";
+            
+            File.WriteAllText(tilemapPath, tilemapString);
+            File.WriteAllText(sizePath, sizeString);
+
+            tilemap.Dispose();
+        }
+
+        private NativeArray<PathNode> SetupGrid(int2 gridSize, List<TileNode> nodes)
+        {
+            var pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.TempJob);
+    
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                for (int y = 0; y < gridSize.y; y++)
+                {
+                    var pathNode = new PathNode();
+                    pathNode.X = x;
+                    pathNode.Y = y;
+    
+                    pathNode.Index = TileMapUtils.CalculateIndex(x, y, gridSize.x);
+                    pathNode.PreviousIndex = PathFinderConstants.INVALID_PREVIOUS_INDEX;
+    
+                    pathNode.gCost = int.MaxValue;
+                    pathNode.hCost = TileMapUtils.CalculateDistanceCost(new int2(x, y), new int2(0, 0));
+                    pathNode.CalculateFCost();
+    
+                    pathNode.Walkable = nodes[pathNode.Index].IsWalkable;
+    
+                    pathNodeArray[pathNode.Index] = pathNode;
+                }
+            }
+    
+            return pathNodeArray;
+        }
+        
         [Button]
         private void ClearMap()
         {
