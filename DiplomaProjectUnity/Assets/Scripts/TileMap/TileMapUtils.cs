@@ -36,7 +36,7 @@ namespace DiplomaProject.TileMap
         
         public static Vector3 TileToWorldPosition(int x, int y)
         {
-            return new Vector3(x * Constants.TILE_PER_UNIT, y * Constants.TILE_PER_UNIT, 0);
+            return new Vector3(x * Constants.TILE_PER_UNIT, 0, y * Constants.TILE_PER_UNIT);
         }
 
         public static bool TilePositionIsInBounds(int x, int y, int gridWidth, int gridHeight)
