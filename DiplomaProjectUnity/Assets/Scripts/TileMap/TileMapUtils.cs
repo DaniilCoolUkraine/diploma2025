@@ -15,7 +15,7 @@ namespace DiplomaProject.TileMap
             return x + y * gridWidth;
         }
 
-        public static void DrawGrid(IEnumerable<TileNode> nodes, Transform parent)
+        public static void DrawGrid(IEnumerable<TileNode> nodes, Transform parent, bool drawText)
         {
             var size = new Vector2(Constants.TILE_PER_UNIT, Constants.TILE_PER_UNIT);
 
@@ -28,7 +28,10 @@ namespace DiplomaProject.TileMap
                 var cellCenter = parent.position + new Vector3(worldPosition.x, 0, worldPosition.y);
 
                 Draw.Rectangle(cellCenter, Quaternion.Euler(90, 0, 0), size, Constants.TILE_BORDER_RADIUS, color);
-                // Draw.Text(textElement, cellCenter, $"{node.X}, {node.Y}", 3, Color.green);
+                if (drawText)
+                {
+                    Draw.Text(textElement, cellCenter, $"{node.X}, {node.Y}", 3, Color.green);
+                }
 
                 textElement.Dispose();   
             }

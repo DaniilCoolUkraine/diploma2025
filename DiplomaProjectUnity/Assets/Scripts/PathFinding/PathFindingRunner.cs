@@ -10,12 +10,17 @@ namespace DiplomaProject.PathFinding
     public class PathFindingRunner : MonoBehaviour
     {
         [SerializeField] private Vector2Int _gridSize = new Vector2Int(10, 10);
-
+        [SerializeField] private bool _enableGizmos;
+        [SerializeField] private bool _drawText;
+        
         [SerializeField, HideInInspector] private List<TileNode> _nodes = new();
-
+        
         private void OnDrawGizmos()
         {
-            TileMapUtils.DrawGrid(_nodes, transform);
+            if (_enableGizmos)
+            {
+                TileMapUtils.DrawGrid(_nodes, transform, _drawText);
+            }
         }
 
         public IEnumerable<TileNode> GetMap()
