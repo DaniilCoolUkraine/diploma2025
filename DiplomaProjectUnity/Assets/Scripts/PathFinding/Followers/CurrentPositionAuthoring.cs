@@ -17,6 +17,11 @@ namespace DiplomaProject.PathFinding.Followers
                 AddComponent(entity, new CurrentPosition {Position = authoring.currentPosition.ToInt2()});
             }
         }
+
+        public void SetCurrentPosition(Vector2Int position)
+        {
+            currentPosition = position;
+        }
     }
     
     public struct CurrentPosition : IComponentData

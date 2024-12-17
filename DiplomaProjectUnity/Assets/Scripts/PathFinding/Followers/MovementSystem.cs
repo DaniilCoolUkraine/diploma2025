@@ -14,7 +14,7 @@ namespace DiplomaProject.PathFinding.Followers
         
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (transform, buffer, speed, currentPosition)in 
+            foreach (var (transform, buffer, speed, currentPosition) in 
                      SystemAPI.Query<RefRW<LocalTransform>, DynamicBuffer<PathFindingParams>, RefRO<MovementSpeed>, RefRW<CurrentPosition>>()
                          .WithNone<IdleState>())
             {
@@ -39,8 +39,24 @@ namespace DiplomaProject.PathFinding.Followers
 
                     var newPosition = transform.ValueRO.Position + new float3(moveVector.x, 0, moveVector.z);
                     transform.ValueRW = transform.ValueRO.WithPosition(newPosition);
-
+                    
                     // transform.ValueRW.Position = transform.ValueRO.Position + new float3(moveVector.x, moveVector.y, 0f);
+                    
+                    var currentPosition3D = new float3(currentPosition.ValueRO.Position.x, 0, currentPosition.ValueRO.Position.y);
+                    var targetPosition3D = new float3(targetPosition.x, 0, targetPosition.y);
+
+                    var directionToTarget = targetPosition3D - currentPosition3D;
+
+                    if (!math.all(directionToTarget == float3.zero))
+                    {
+                        var lookDirection = math.normalize(directionToTarget);
+                        var targetRotation = quaternion.LookRotationSafe(lookDirection, math.up());
+
+                        var currentRotation = transform.ValueRO.Rotation;
+                        var smoothedRotation = math.slerp(currentRotation, targetRotation, SystemAPI.Time.DeltaTime * 8);
+
+                        transform.ValueRW = transform.ValueRO.WithRotation(smoothedRotation);
+                    }
                 }
             }
         }
