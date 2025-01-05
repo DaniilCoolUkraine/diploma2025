@@ -4,5 +4,7 @@
     {
         public const float TILE_PER_UNIT = 5f;
         public const float TILE_BORDER_RADIUS = 0.3f;
+
+        public const float AGENT_STOP_DISTANCE = 0.1f;
     }
 }
