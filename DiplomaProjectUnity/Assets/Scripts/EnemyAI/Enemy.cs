@@ -15,25 +15,24 @@ namespace DiplomaProject.EnemyAI
 
         [SerializeField] private Transform _target;
         
-        private BehaviourTree _testTree;
+        private BehaviourTree _ai;
         
         private void Awake()
         {
-            _testTree = new BehaviourTree("Test Tree");
+            _ai = new BehaviourTree("Main Tree");
 
-            // _testTree.AddChild(new Leaf("Patrol", new PatrolStrategy(_agent, _points, _speed)));
-
-            var sequence = new Sequence("Go to treasure seq")
+            var sequence = new LoopSequence("Follow target sequence")
                 .AddChild(new Leaf("Check target", new ConditionStrategy(() => _target.gameObject.activeSelf)))
                 .AddChild(new Leaf("Follow target", new FollowTransformStrategy(_agent, _target, _animator, _speed)))
+                .AddChild(new Leaf("Log message", new ActionStrategy(() => Debug.Log("sequence end"))))
                 ;
 
-            _testTree.AddChild(sequence);
+            _ai.AddChild(sequence);
         }
 
         private void Update()
         {
-            _testTree.Process();
+            _ai.Process();
         }
     }
 }
