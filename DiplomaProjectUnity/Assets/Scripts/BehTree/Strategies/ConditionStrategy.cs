@@ -15,10 +15,5 @@ namespace DiplomaProject.BehTree.Strategies
         {
             return _predicate() ? Node.Status.Success : Node.Status.Failure;
         }
-
-        public void Reset()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

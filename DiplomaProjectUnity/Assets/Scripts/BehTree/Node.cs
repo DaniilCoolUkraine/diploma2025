@@ -30,9 +30,10 @@ namespace DiplomaProject.BehTree
 
         #endregion
 
-        public void AddChild(Node child)
+        public Node AddChild(Node child)
         {
             Children.Add(child);
+            return this;
         }
 
         public virtual Status Process()

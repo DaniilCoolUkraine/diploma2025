@@ -6,5 +6,6 @@
         public const float TILE_BORDER_RADIUS = 0.3f;
 
         public const float AGENT_STOP_DISTANCE = 0.1f;
+        public const float AGENT_FOLLOW_DISTANCE = 8f;
     }
 }

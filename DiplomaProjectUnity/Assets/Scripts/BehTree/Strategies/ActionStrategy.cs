@@ -5,18 +5,18 @@ namespace DiplomaProject.BehTree.Strategies
 {
     public class ActionStrategy : IStrategy
     {
-        private Action _predicate;
+        private Action _action;
 
-        public ActionStrategy(Action predicate)
+        public ActionStrategy(Action action)
         {
-            _predicate = predicate;
+            _action = action;
         }
         
         public Node.Status Process()
         {
             try
             {
-                _predicate();
+                _action();
             }
             catch (Exception e)
             {
