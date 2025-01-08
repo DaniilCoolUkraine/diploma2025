@@ -24,6 +24,7 @@ namespace DiplomaProject.EnemyAI
             var sequence = new LoopSequence("Follow target sequence")
                 .AddChild(new Leaf("Check target", new ConditionStrategy(() => _target.gameObject.activeSelf)))
                 .AddChild(new Leaf("Follow target", new FollowTransformStrategy(_agent, _target, _animator, _speed)))
+                .AddChild(new Leaf("Attack", new AttackStrategy(_target, transform, _animator)))
                 .AddChild(new Leaf("Log message", new ActionStrategy(() => Debug.Log("sequence end"))))
                 ;
 
