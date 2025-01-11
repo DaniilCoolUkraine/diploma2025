@@ -9,8 +9,7 @@ namespace DiplomaProject.EnemyAI
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private Animator _animator;
-        
-        [SerializeField] private Transform[] _points;
+
         [SerializeField] private float _speed;
 
         [SerializeField] private Transform _target;
@@ -25,7 +24,6 @@ namespace DiplomaProject.EnemyAI
                 .AddChild(new Leaf("Check target", new ConditionStrategy(() => _target.gameObject.activeSelf)))
                 .AddChild(new Leaf("Follow target", new FollowTransformStrategy(_agent, _target, _animator, _speed)))
                 .AddChild(new Leaf("Attack", new AttackStrategy(_target, transform, _animator)))
-                .AddChild(new Leaf("Log message", new ActionStrategy(() => Debug.Log("sequence end"))))
                 ;
 
             _ai.AddChild(sequence);

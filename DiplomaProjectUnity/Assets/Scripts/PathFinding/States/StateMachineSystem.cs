@@ -1,8 +1,9 @@
 ﻿using DiplomaProject.PathFinding.Followers;
+using DiplomaProject.States;
 using Unity.Entities;
 using UnityEngine;
 
-namespace DiplomaProject.States
+namespace DiplomaProject.PathFinding.States
 {
     public partial struct StateMachineSystem : ISystem
     {

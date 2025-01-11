@@ -10,11 +10,14 @@ namespace DiplomaProject.BehTree.Strategies
 
         private int _animIDThrowingLayer = 0;
         private int _animIDThrow = Animator.StringToHash("Throw");
-        
+
         private bool _animStarted = false;
-        private const float ANIMATION_TIME = 1.8f;
+        private bool _attacked = false;
+
+        private const float ANIMATION_TIME = 2.05f;
+        private const float ANIMATION_THROW_TIME = 0.24f;
         private float _currentAnimationTime = 0;
-        
+
         public AttackStrategy(Transform target, Transform transform, Animator animator)
         {
             _target = target;
@@ -39,13 +42,17 @@ namespace DiplomaProject.BehTree.Strategies
             if (_animStarted)
             {
                 if (_currentAnimationTime >= ANIMATION_TIME)
-                {
                     return Node.Status.Success;
-                }
 
                 _currentAnimationTime += Time.deltaTime;
             }
 
+            if (_currentAnimationTime >= ANIMATION_THROW_TIME && !_attacked)
+            {
+                _attacked = true;
+                
+            }
+            
             return Node.Status.Running;
         }
 
@@ -53,8 +60,9 @@ namespace DiplomaProject.BehTree.Strategies
         {
             _animator.SetLayerWeight(_animIDThrowingLayer, 0);
             _animator.ResetTrigger(_animIDThrow);
-            _animStarted = false;
             _currentAnimationTime = 0;
+
+            _animStarted = false;
         }
     }
 }
