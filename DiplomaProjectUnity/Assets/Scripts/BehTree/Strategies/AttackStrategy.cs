@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using DiplomaProject.AttackUtils;
+using UnityEngine;
+using Zenject;
 
 namespace DiplomaProject.BehTree.Strategies
 {
@@ -15,16 +17,23 @@ namespace DiplomaProject.BehTree.Strategies
         private bool _attacked = false;
 
         private const float ANIMATION_TIME = 2.05f;
-        private const float ANIMATION_THROW_TIME = 0.24f;
+        private const float ANIMATION_THROW_TIME = 0.7f;
         private float _currentAnimationTime = 0;
 
-        public AttackStrategy(Transform target, Transform transform, Animator animator)
+        private Transform _projectileSpawn;
+        [Inject] private IProjectileSpawner _projectileSpawner;
+        
+        public AttackStrategy(Transform target, Transform transform, Animator animator, Transform projectileSpawn,
+            DiContainer container)
         {
             _target = target;
             _animator = animator;
             _transform = transform;
+            _projectileSpawn = projectileSpawn;
 
             _animIDThrowingLayer = _animator.GetLayerIndex("Throw Layer");
+            
+            container.Inject(this);
         }
 
         public Node.Status Process()
@@ -50,9 +59,9 @@ namespace DiplomaProject.BehTree.Strategies
             if (_currentAnimationTime >= ANIMATION_THROW_TIME && !_attacked)
             {
                 _attacked = true;
-                
+                SetupProjectile();
             }
-            
+
             return Node.Status.Running;
         }
 
@@ -63,6 +72,16 @@ namespace DiplomaProject.BehTree.Strategies
             _currentAnimationTime = 0;
 
             _animStarted = false;
+            _attacked = false;
+        }
+
+        private void SetupProjectile()
+        {
+            var projectile = _projectileSpawner.SpawnProjectile(_transform.position, _target.position);
+            
+            projectile.SetPosition(_projectileSpawn.position);
+            projectile.SetTarget(_target.position);
+            projectile.Run();
         }
     }
 }
