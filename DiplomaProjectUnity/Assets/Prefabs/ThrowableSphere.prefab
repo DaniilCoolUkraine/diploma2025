@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3440888327019231237}
   - component: {fileID: 3302179225274298463}
   - component: {fileID: 6280260255531084124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 7205368428837107130}
   - component: {fileID: 2228546428166407677}
   - component: {fileID: 6906768428941275310}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThrowableSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

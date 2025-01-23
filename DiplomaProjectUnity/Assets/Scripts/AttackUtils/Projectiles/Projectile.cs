@@ -1,5 +1,6 @@
 ﻿using System;
 using DiplomaProject.Pool;
+using Sirenix.Utilities;
 using UnityEngine;
 
 namespace DiplomaProject.AttackUtils.Projectiles
@@ -31,9 +32,9 @@ namespace DiplomaProject.AttackUtils.Projectiles
             return this;
         }
 
-        // private void OnCollisionEnter(Collision other)
-        // {
-        //     Destroy(gameObject);
-        // }
+        private void OnCollisionEnter(Collision other)
+        {
+            Destroy(gameObject);
+        }
     }
 }
