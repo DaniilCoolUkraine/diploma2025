@@ -1,6 +1,4 @@
-﻿using System;
-using DiplomaProject.Pool;
-using Sirenix.Utilities;
+﻿using DiplomaProject.Pool;
 using UnityEngine;
 
 namespace DiplomaProject.AttackUtils.Projectiles
@@ -12,9 +10,11 @@ namespace DiplomaProject.AttackUtils.Projectiles
 
         [SerializeField] private Rigidbody _rigidbody;
 
+        [SerializeField] private Transform[] _hitEffects;
+        
         private Vector3 _targetPosition;
 
-        public IProjectile SetPosition(Vector3 position)
+        public IProjectile SetStartPosition(Vector3 position)
         {
             transform.position = position;
             return this;
@@ -34,6 +34,7 @@ namespace DiplomaProject.AttackUtils.Projectiles
 
         private void OnCollisionEnter(Collision other)
         {
+            Instantiate(_hitEffects[Random.Range(0, _hitEffects.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

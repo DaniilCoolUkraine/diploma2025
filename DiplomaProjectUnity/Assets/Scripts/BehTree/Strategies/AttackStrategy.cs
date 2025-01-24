@@ -78,8 +78,8 @@ namespace DiplomaProject.BehTree.Strategies
         private void SetupProjectile()
         {
             var projectile = _projectileSpawner.SpawnProjectile(_transform.position, _target.position);
-            
-            projectile.SetPosition(_projectileSpawn.position);
+
+            projectile.SetStartPosition(_projectileSpawn.position);
             projectile.SetTarget(_target.position);
             projectile.Run();
         }
