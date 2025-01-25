@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49be93379c08455996a43c8244696809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _maxTime: 15
+  _speed: 20
+  _maxTime: 7
   _rigidbody: {fileID: 2228546428166407677}
   _hitEffects:
   - {fileID: 6444498723465056674, guid: c33bb50fee63caa428df727b777f2b3f, type: 3}

@@ -40,7 +40,7 @@ namespace DiplomaProject.AttackUtils.Projectiles
             // var hitPoint = contact.point;
             var hitNormal = contact.normal;
 
-            Instantiate(_hitEffects[Random.Range(0, _hitEffects.Length)], transform.position, Quaternion.LookRotation(-hitNormal, contact.point));
+            Instantiate(_hitEffects[Random.Range(0, _hitEffects.Length)], transform.position, Quaternion.LookRotation(hitNormal) * Quaternion.Euler(90, 0, 0));
             Destroy(gameObject);
         }
     }
