@@ -1,4 +1,5 @@
-﻿using DiplomaProject.Pool;
+﻿using System.Linq;
+using DiplomaProject.Pool;
 using UnityEngine;
 
 namespace DiplomaProject.AttackUtils.Projectiles
@@ -34,7 +35,12 @@ namespace DiplomaProject.AttackUtils.Projectiles
 
         private void OnCollisionEnter(Collision other)
         {
-            Instantiate(_hitEffects[Random.Range(0, _hitEffects.Length)], transform.position, Quaternion.identity);
+            var contact = other.contacts.FirstOrDefault();
+            
+            // var hitPoint = contact.point;
+            var hitNormal = contact.normal;
+
+            Instantiate(_hitEffects[Random.Range(0, _hitEffects.Length)], transform.position, Quaternion.LookRotation(-hitNormal, contact.point));
             Destroy(gameObject);
         }
     }
