@@ -1,4 +1,6 @@
 ﻿using DiplomaProject.AttackUtils;
+using DiplomaProject.EventSystem.Core;
+using DiplomaProject.EventSystem.Extendables;
 using UnityEngine;
 using Zenject;
 
@@ -20,10 +22,12 @@ namespace DiplomaProject.BehTree.Strategies
         private const float ANIMATION_THROW_TIME = 0.7f;
         private float _currentAnimationTime = 0;
 
+        private int _maxAmmoCount = 0;
+        private int _currentAmmoCount = 0;
         private Transform _projectileSpawn;
         [Inject] private IProjectileSpawner _projectileSpawner;
         
-        public AttackStrategy(Transform target, Transform transform, Animator animator, Transform projectileSpawn,
+        public AttackStrategy(Transform target, Transform transform, Animator animator, Transform projectileSpawn, int maxAmmoCount,
             DiContainer container)
         {
             _target = target;
@@ -31,13 +35,20 @@ namespace DiplomaProject.BehTree.Strategies
             _transform = transform;
             _projectileSpawn = projectileSpawn;
 
+            _maxAmmoCount = maxAmmoCount;
+            _currentAmmoCount = maxAmmoCount;
+
             _animIDThrowingLayer = _animator.GetLayerIndex("Throw Layer");
             
             container.Inject(this);
+            GlobalEvents.AddListener<RefillEvent>(OnRefill);
         }
 
         public Node.Status Process()
         {
+            if (_currentAmmoCount <= 0)
+                return Node.Status.Failure;
+            
             _animator.SetLayerWeight(_animIDThrowingLayer, 1);
             _transform.LookAt(_target);
             _animator.transform.localRotation = Quaternion.identity;
@@ -60,6 +71,8 @@ namespace DiplomaProject.BehTree.Strategies
             {
                 _attacked = true;
                 SetupProjectile();
+                _currentAmmoCount--;
+                GlobalEvents.Publish<FireEvent>(new FireEvent(_currentAmmoCount));
             }
 
             return Node.Status.Running;
@@ -73,8 +86,17 @@ namespace DiplomaProject.BehTree.Strategies
 
             _animStarted = false;
             _attacked = false;
+            GlobalEvents.RemoveListener<RefillEvent>(OnRefill);
         }
 
+        private void OnRefill(RefillEvent @event)
+        {
+            if (@event.EntityToRefill == _transform)
+            {
+                _currentAmmoCount = _maxAmmoCount;
+            }
+        }
+        
         private void SetupProjectile()
         {
             var projectile = _projectileSpawner.SpawnProjectile(_transform.position, _target.position);
