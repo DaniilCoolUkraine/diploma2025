@@ -86,7 +86,6 @@ namespace DiplomaProject.BehTree.Strategies
 
             _animStarted = false;
             _attacked = false;
-            GlobalEvents.RemoveListener<RefillEvent>(OnRefill);
         }
 
         private void OnRefill(RefillEvent @event)

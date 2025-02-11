@@ -70,7 +70,7 @@ namespace DiplomaProject.EnemyAI
                     .AddChild(new Leaf("Attack", new AttackStrategy(_target, transform, _animator, _projectileSpawnPoint, _ammoCount, _container)))
                 ;
             var checkAmmoSequence = new Sequence("Check Ammo sequence")
-                .AddChild(new Leaf("Check Ammo", new ConditionStrategy(CheckAmmo())))
+                .AddChild(new Leaf("Check Ammo", new ConditionStrategy(() => _currentAmmo <= 0)))
                 .AddChild(new Leaf("Go to refill", new PatrolStrategy(_agent, new[] { _refillPoint }, _runSpeed)));
 
             var mainLoop = new LoopSelector("Main Loop selector")
@@ -79,12 +79,6 @@ namespace DiplomaProject.EnemyAI
 
             _ai.AddChild(mainLoop)
                 .AddChild(new Leaf("End log", new ActionStrategy(() => Debug.Log("End log"))));
-        }
-
-        private Func<bool> CheckAmmo()
-        {
-            Debug.Log($"Checking Ammo {_currentAmmo}");
-            return () => _currentAmmo <= 0;
         }
 
         private void OnEnemyFire(FireEvent ev)
