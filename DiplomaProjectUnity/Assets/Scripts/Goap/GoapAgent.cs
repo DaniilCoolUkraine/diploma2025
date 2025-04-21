@@ -49,6 +49,9 @@ namespace DiplomaProject.Goap
         [SerializeField] private float _health;
         [SerializeField] private float _stamina;
 
+        [Header("Misc")] 
+        [SerializeField, Required] private ComputeShader _plannerShader;
+
         private CountdownTimer _statsTimer;
         
         private GameObject _target;
@@ -67,7 +70,7 @@ namespace DiplomaProject.Goap
         private IGoapPlanner _planner;
 
         public HashSet<AgentAction> Actions => _actions;
-
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -87,7 +90,7 @@ namespace DiplomaProject.Goap
 
         private void Awake()
         {
-            _planner = new GoapPlanner();
+            _planner = new ComputeShaderGoapPlanner(_plannerShader);
         }
 
         private void OnEnable()
@@ -297,7 +300,7 @@ namespace DiplomaProject.Goap
                 .AddDesiredEffect(_beliefs[AGENT_RESTED_KEY])
                 .Build());
 
-            _goals.Add(new AgentGoal.Builder("Rested")
+            _goals.Add(new AgentGoal.Builder("AttackEnemy")
                 .WithPriority(3)
                 .AddDesiredEffect(_beliefs[ATTACKING_ENEMY_KEY])
                 .Build());

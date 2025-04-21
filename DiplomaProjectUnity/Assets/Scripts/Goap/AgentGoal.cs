@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using DiplomaProject.General;
 
 namespace DiplomaProject.Goap
 {
@@ -47,5 +51,24 @@ namespace DiplomaProject.Goap
                 return _goal;
             }
         }
+        
+        public AgentGoalStruct ToStruct()
+        {
+            return new AgentGoalStruct
+            {
+                NameHash = Name.GetHashCode(),
+                Priority = Priority,
+                DesiredEffect = DesiredEffects.Select(e => e.ToStruct()).FirstOrDefault()
+            };
+        }
+    }
+
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AgentGoalStruct
+    {
+        public int NameHash;
+        public int Priority;
+        public AgentBeliefStruct DesiredEffect;
     }
 }

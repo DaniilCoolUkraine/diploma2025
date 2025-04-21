@@ -1,0 +1,94 @@
+﻿#pragma enable_d3d11_debug_symbols
+
+#pragma kernel Plan
+
+// Define maximum sizes
+#define MAX_PRECONDITIONS 1
+#define MAX_EFFECTS 1
+
+// Define structs
+struct AgentBeliefStruct
+{
+    int NameHash;
+
+    float3 Location;
+    int Condition;
+};
+
+struct AgentActionStruct
+{
+    int NameHash;
+
+    float Cost;
+    AgentBeliefStruct Precondition;
+    AgentBeliefStruct Effect;
+};
+
+struct AgentGoalStruct
+{
+    int NameHash;
+
+    int Priority;
+    AgentBeliefStruct DesiredEffect;
+};
+
+// Values passed from the CPU
+RWStructuredBuffer<AgentGoalStruct> Goals;
+RWStructuredBuffer<AgentActionStruct> Actions;
+RWStructuredBuffer<AgentActionStruct> PlannedActions;
+
+int ActionsCount;
+int GoalsCount;
+RWStructuredBuffer<int> SucceededGoalIndex;
+
+// Inner state variables
+int lastActionPoolIndex = 0;
+int lastActionIndex = -1;
+
+[numthreads(1, 1, 1)]
+void Plan(uint3 id : SV_DispatchThreadID)
+{
+    for (int i = 0; i < GoalsCount; i++)
+    {
+        lastActionIndex = -1;
+        AgentGoalStruct currentGoal = Goals[i];
+
+        if (currentGoal.DesiredEffect.Condition != 1)
+        {
+            for (int j = 0; j < ActionsCount; j++)
+            {
+                AgentActionStruct action = Actions[j];
+                if (action.Effect.NameHash == currentGoal.DesiredEffect.NameHash)
+                {
+                    if (action.Precondition.Condition == 1)
+                    {
+                        PlannedActions[lastActionPoolIndex] = action;
+                        SucceededGoalIndex[0] = i;
+                        break;
+                    }
+
+                    lastActionIndex = j;
+                }
+            }
+
+            if (lastActionIndex != -1)
+            {
+                AgentActionStruct lastAction = Actions[lastActionIndex];
+                for (int j = 0; j < ActionsCount; j++)
+                {
+                    AgentActionStruct action = Actions[j];
+                    if (action.Effect.NameHash == lastAction.Precondition.NameHash)
+                    {
+                        if (action.Precondition.Condition == 1)
+                        {
+                            PlannedActions[lastActionPoolIndex] = action;
+                            PlannedActions[lastActionPoolIndex + 1] = lastAction;
+                            SucceededGoalIndex[0] = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

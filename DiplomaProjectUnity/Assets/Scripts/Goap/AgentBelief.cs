@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace DiplomaProject.Goap
@@ -44,5 +45,24 @@ namespace DiplomaProject.Goap
                 return _agentBelief;
             }
         }
+        
+        public AgentBeliefStruct ToStruct()
+        {
+            return new AgentBeliefStruct
+            {
+                NameHash = Name.GetHashCode(),
+                Location = Location,
+                Condition = Evaluate() ? 1 : 0
+            };
+        }
+    }
+    
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AgentBeliefStruct
+    {
+        public int NameHash;
+        public Vector3 Location;
+        public int Condition;
     }
 }

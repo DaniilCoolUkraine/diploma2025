@@ -7,5 +7,8 @@
 
         public const float AGENT_STOP_DISTANCE = 0.1f;
         public const float AGENT_FOLLOW_DISTANCE = 8f;
+        
+        public const int MAX_PRECONDITIONS = 1;
+        public const int MAX_EFFECTS = 1;
     }
 }

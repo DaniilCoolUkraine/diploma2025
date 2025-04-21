@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using DiplomaProject.General;
 using DiplomaProject.Goap.Strategies;
 
 namespace DiplomaProject.Goap
@@ -97,5 +101,32 @@ namespace DiplomaProject.Goap
                 return _action;
             }
         }
+        
+        public AgentActionStruct ToStruct()
+        {
+            var precondition = Preconditions.Select(b => b.ToStruct()).FirstOrDefault();
+
+            if (Preconditions == null || Preconditions.Count == 0)
+                precondition.Condition = 1;
+
+            return new AgentActionStruct
+            {
+                NameHash = Name.GetHashCode(),
+                Cost = Cost,
+                Precondition = precondition,
+                Effect = Effects.Select(b => b.ToStruct()).FirstOrDefault()
+            };
+        }
+    }
+
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    public struct AgentActionStruct
+    {
+        public int NameHash;
+        public float Cost;
+
+        public AgentBeliefStruct Precondition;
+        public AgentBeliefStruct Effect;
     }
 }
